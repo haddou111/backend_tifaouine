@@ -1,4 +1,4 @@
-﻿const { DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/database');
 
 const Domaine = sequelize.define('Domaine', {
@@ -8,17 +8,21 @@ const Domaine = sequelize.define('Domaine', {
         primaryKey: true,
         allowNull: false,
     },
-    nom: {
+    nom_fr: {
         type: DataTypes.STRING(120),
         allowNull: false,
     },
-    description: {
-        type: DataTypes.STRING(250),
+    nom_ar: {
+        type: DataTypes.STRING(120),
         allowNull: false,
     },
-    image: {
-        type: DataTypes.STRING(250),
-        allowNull: false,
+    icone: {
+        type: DataTypes.STRING(80),
+        allowNull: true,
+    },
+    desc_fr: {
+        type: DataTypes.TEXT,
+        allowNull: true,
     },
 }, {
     tableName: 'domaine',
