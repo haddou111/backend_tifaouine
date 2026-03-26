@@ -18,14 +18,18 @@ const membre=sequelize.define('membre',{
         allowNull:false,
         defaultValue: DataTypes.NOW
     },
-    status:{
-        type:DataTypes.STRING(20),
-        allowNull:false,
-        validate:{
-            isIn:[['actif','inactif','suspendu']]
+    status: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+        validate: {
+            isIn: [['actif', 'inactif', 'suspendu']]
         }
+    },
+    utilisateur_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     }
-},{
+}, {
     tableName: 'membre',
     timestamps: true,
     createdAt: 'created_at',
