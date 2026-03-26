@@ -60,3 +60,6 @@ Le serveur sera disponible sur : [http://localhost:5000](http://localhost:5000)
 - Si vous modifiez les identifiants dans le `.env`, pensez à les modifier également dans le fichier `docker-compose.yml`.
 - Si la connexion échoue au premier lancement, essayez de réinitialiser le conteneur avec :
   `docker compose down -v; docker compose up -d`
+
+# backend_tifaouine
+ce projet consiste a la creation dun backend de website de l'association marocaine tifaouine 
