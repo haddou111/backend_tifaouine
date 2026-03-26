@@ -1,0 +1,26 @@
+const express = require('express');
+const router = express.Router();
+
+const authRoutes = require('./auth.routes');
+const adminRoutes = require('./admin.routes');
+const projetsRoutes = require('./projets.routes');
+const evenementsRoutes = require('./evenements.routes');
+const donsRoutes = require('./dons.routes');
+const mediasRoutes = require('./medias.routes');
+const ressourcesRoutes = require('./ressources.routes');
+const partenariatsRoutes = require('./partenariats.routes');
+const messagesRoutes = require('./messages.routes');
+const statsRoutes = require('./stats.routes');
+
+router.use('/auth', authRoutes);
+router.use('/admin', adminRoutes);
+router.use('/projets', projetsRoutes);
+router.use('/evenements', evenementsRoutes);
+router.use('/dons', donsRoutes);
+router.use('/medias', mediasRoutes);
+router.use('/ressources', ressourcesRoutes);
+router.use('/partenariats', partenariatsRoutes);
+router.use('/messages', messagesRoutes);
+router.use('/stats', statsRoutes);
+
+module.exports = router;
