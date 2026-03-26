@@ -1,14 +1,14 @@
-# Backend Tifaouine 🌟
+# Backend Tifaouine 
 
 Ce projet est le backend de l'application **Tifaouine**, construit avec Node.js, Express et Sequelize (PostgreSQL).
 
-## 📋 Prérequis
+##  Prérequis
 
 Avant de commencer, assurez-vous d'avoir installé :
 - [Node.js](https://nodejs.org/) (v16 ou supérieur)
 - [Docker & Docker Compose](https://www.docker.com/products/docker-desktop/)
 
-## 🚀 Installation et Démarrage
+##  Installation et Démarrage
 
 ### 1. Cloner le projet et installer les dépendances
 ```bash
@@ -22,14 +22,14 @@ PORT=5000
 NODE_ENV=development
 
 # Configuration de la base de données
-DB_HOST=127.0.0.1
-DB_PORT=5433
-DB_USER=tifaouine_admin
-DB_PASSWORD=tifaouine_pass
-DB_NAME=tifaouine_db
+DB_HOST=adresse de la base de donnee
+DB_PORT=port de la base de donnée
+DB_USER=nom de l'utilisateur de la base de donnee
+DB_PASSWORD=mot de passe de l'utilisateur de la base de donnee
+DB_NAME=nom de la base de donnee
 
 # Sécurité & Services tiers
-JWT_SECRET=votre_secret_ici
+JWT_SECRET=votre_secret_jwt_securise
 CLOUDINARY_CLOUD_NAME=votre_cloud_name
 CLOUDINARY_API_KEY=votre_api_key
 CLOUDINARY_API_SECRET=votre_api_secret
@@ -47,16 +47,16 @@ docker compose up -d
 ```bash
 npm run dev
 ```
-Le serveur sera disponible sur : [http://localhost:5000](http://localhost:5000)
+Le serveur sera disponible sur : [http://adresse ip:port](http://localhost:5000)
 
-## 📁 Structure du projet
+##  Structure du projet
 - `src/config/` : Configuration (Base de données, Cloudinary, etc.)
 - `src/models/` : Modèles Sequelize (Définition des tables)
 - `src/controllers/` : Logique métier
 - `src/routes/` : Points d'entrée de l'API
 - `src/middlewares/` : Filtres (Auth, Upload, etc.)
 
-## ⚠️ Notes importantes
+## Notes importantes
 - Si vous modifiez les identifiants dans le `.env`, pensez à les modifier également dans le fichier `docker-compose.yml`.
 - Si la connexion échoue au premier lancement, essayez de réinitialiser le conteneur avec :
   `docker compose down -v; docker compose up -d`
