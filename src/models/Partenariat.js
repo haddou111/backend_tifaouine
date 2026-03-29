@@ -24,6 +24,10 @@ const Partenariat = sequelize.define('Partenariat', {
         type: DataTypes.STRING(200),
         allowNull: false,
     },
+    description_en: {
+        type: DataTypes.STRING(200),
+        allowNull: false,
+    },
     site_web: {
         type: DataTypes.STRING(255),
         allowNull: true,

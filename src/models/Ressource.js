@@ -30,6 +30,10 @@ const Ressource = sequelize.define('Ressource', {
     titre_ar: {
         type: DataTypes.STRING(255),
         allowNull: true,
+    },
+    titre_en: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
     }
 }, {
     tableName: 'ressource',

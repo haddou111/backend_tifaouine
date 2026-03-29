@@ -24,6 +24,10 @@ const Evenement = sequelize.define('Evenement', {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
+    titre_en: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+    },
     date_debut: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -48,6 +52,10 @@ const Evenement = sequelize.define('Evenement', {
         allowNull: true,
     },
     description_fr: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
+    description_en: {
         type: DataTypes.TEXT,
         allowNull: true,
     }
