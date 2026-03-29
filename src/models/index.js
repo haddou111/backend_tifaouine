@@ -15,6 +15,8 @@ const Don = require('./Don');
 const DonFinancier = require('./DonFinancier');
 const DonMateriel = require('./DonMateriel');
 const Stat = require('./Stat');
+const RefreshToken = require('./RefreshToken');
+const TokenBlacklist = require('./TokenBlacklist');
 
 // --- Associations ---
 
@@ -27,6 +29,10 @@ membre.belongsTo(Utilisateur, { foreignKey: 'utilisateur_id' });
 
 Utilisateur.hasOne(benevole, { foreignKey: 'utilisateur_id', onDelete: 'CASCADE' });
 benevole.belongsTo(Utilisateur, { foreignKey: 'utilisateur_id' });
+
+// RefreshToken associations
+Utilisateur.hasMany(RefreshToken, { foreignKey: 'utilisateur_id', onDelete: 'CASCADE' });
+RefreshToken.belongsTo(Utilisateur, { foreignKey: 'utilisateur_id' });
 
 // Associations Projet & Domaine
 Domaine.hasMany(Projet, { foreignKey: 'domaine_id', onDelete: 'RESTRICT' });
@@ -68,5 +74,7 @@ module.exports = {
     Don,
     DonFinancier,
     DonMateriel,
-    Stat
+    Stat,
+    RefreshToken,
+    TokenBlacklist
 };

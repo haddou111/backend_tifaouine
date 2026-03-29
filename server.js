@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 5000;
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 // Route de base
@@ -29,8 +31,7 @@ const startServer = async () => {
         await sequelize.authenticate();
         console.log(' Connexion à PostgreSQL établie avec succès');
         
-        // Optionnel : Synchronisation des modèles (à utiliser avec prudence en prod)
-        // await sequelize.sync({ alter: true }); 
+        await sequelize.sync({ alter: true }); 
         
         app.listen(PORT, () => {
             console.log(`Serveur démarré sur http://localhost:${PORT}`);
