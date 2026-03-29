@@ -26,6 +26,10 @@ const Stat = sequelize.define('Stat', {
         type: DataTypes.STRING(120),
         allowNull: false,
     },
+    label_en: {
+        type: DataTypes.STRING(120),
+        allowNull: false,
+    },
     icone: {
         type: DataTypes.STRING(80),
         allowNull: true,

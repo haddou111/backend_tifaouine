@@ -20,6 +20,10 @@ const Projet = sequelize.define('Projet', {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
+    titre_en: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+    },
     statut: {
         type: DataTypes.STRING(20),
         allowNull: false,

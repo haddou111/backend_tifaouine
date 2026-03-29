@@ -16,11 +16,23 @@ const Domaine = sequelize.define('Domaine', {
         type: DataTypes.STRING(120),
         allowNull: false,
     },
+    nom_en: {
+        type: DataTypes.STRING(120),
+        allowNull: false,
+    },
     icone: {
         type: DataTypes.STRING(80),
         allowNull: true,
     },
     desc_fr: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
+    desc_ar: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
+    desc_en: {
         type: DataTypes.TEXT,
         allowNull: true,
     },
