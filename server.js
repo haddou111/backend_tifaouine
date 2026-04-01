@@ -4,8 +4,12 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 const app = express();
+
+// Servir les fichiers statiques (Photos des membres, bénévoles, etc.)
+app.use('/data', express.static(path.join(__dirname, 'src', 'data')));
 const PORT = process.env.PORT || 5000;
 
 // Extra basic middleware
