@@ -8,13 +8,33 @@ const path = require('path');
 
 const app = express();
 
+/**
+ * Vérification de la configuration critique
+ */
+const requiredEnv = ['JWT_SECRET', 'JWT_REFRESH_SECRET', 'PORT', 'FRONTEND_URL'];
+requiredEnv.forEach(key => {
+    if (!process.env[key]) {
+        console.error(`[ERREUR FATALE] : La variable d'environnement ${key} est manquante.`);
+        process.exit(1);
+    }
+});
+
 // Servir les fichiers statiques (Photos des membres, bénévoles, etc.)
 app.use('/data', express.static(path.join(__dirname, 'src', 'data')));
 const PORT = process.env.PORT || 5000;
 
-// Extra basic middleware
+// Middleware de sécurité
 app.use(helmet());
-app.use(cors());
+
+// Configuration CORS sécurisée
+const corsOptions = {
+    origin: process.env.FRONTEND_URL, // Autorise uniquement l'URL de votre site
+    credentials: true,               // Autorise l'envoi des cookies sécurisés (HttpOnly)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan('dev'));

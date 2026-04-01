@@ -31,7 +31,7 @@ const verifyToken = async (req, res, next) => {
             });
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'votre_secret_tres_long_et_securise_ici');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         
         // Attacher les données décodées à la requête (id, email, type)
         req.token = token; // On garde le token pour le logout si besoin

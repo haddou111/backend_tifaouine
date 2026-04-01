@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/auth.controller');
 const { verifyToken, isAdmin } = require('../middlewares/auth.middleware');
+const { authLimiter } = require('../middlewares/rateLimit.middleware');
 
 // @route  POST /api/auth/login
-router.post('/login', authController.login);
+router.post('/login', authLimiter, authController.login);
 
 // @route  POST /api/auth/refresh-token
 router.post('/refresh-token', authController.refreshToken);

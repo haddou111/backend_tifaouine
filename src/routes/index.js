@@ -13,6 +13,9 @@ const ressourcesRoutes = require('./ressources.routes');
 const partenariatsRoutes = require('./partenariats.routes');
 const messagesRoutes = require('./messages.routes');
 const statsRoutes = require('./stats.routes');
+const { apiLimiter } = require('../middlewares/rateLimit.middleware');
+
+router.use(apiLimiter);
 
 router.use('/auth', authRoutes);
 router.use('/admin', adminRoutes);

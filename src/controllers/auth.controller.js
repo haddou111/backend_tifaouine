@@ -22,7 +22,7 @@ class AuthController {
             res.cookie('refreshToken', data.refreshToken, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
-                sameSite: 'strict',
+                sameSite: 'Strict', // Protection CSRF
                 maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
             });
 
@@ -30,7 +30,6 @@ class AuthController {
                 success: true,
                 message: "Connexion réussie.",
                 accessToken: data.accessToken,
-                refreshToken: data.refreshToken,
                 user: data.user
             });
 
@@ -49,7 +48,8 @@ class AuthController {
      */
     async refreshToken(req, res) {
         try {
-            const refreshToken = req.body.refreshToken || req.cookies.refreshToken;
+            // Lecture exclusive depuis les cookies pour plus de sécurité
+            const refreshToken = req.cookies.refreshToken;
 
             if (!refreshToken) {
                 return res.status(401).json({
@@ -79,12 +79,15 @@ class AuthController {
     async logout(req, res) {
         try {
             const accessToken = req.token;
-            const refreshToken = req.body.refreshToken || req.cookies.refreshToken;
+            const refreshToken = req.cookies.refreshToken;
 
             await authService.logoutAdmin(accessToken, refreshToken);
 
-            res.clearCookie('token');
-            res.clearCookie('refreshToken');
+            res.clearCookie('refreshToken', {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'Strict'
+            });
 
             return res.status(200).json({
                 success: true,
