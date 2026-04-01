@@ -3,6 +3,8 @@ const router = express.Router();
 
 const authRoutes = require('./auth.routes');
 const adminRoutes = require('./admin.routes');
+const membreRoutes = require('./membre.routes');
+const benevoleRoutes = require('./benevole.routes');
 const projetsRoutes = require('./projets.routes');
 const evenementsRoutes = require('./evenements.routes');
 const donsRoutes = require('./dons.routes');
@@ -14,6 +16,8 @@ const statsRoutes = require('./stats.routes');
 
 router.use('/auth', authRoutes);
 router.use('/admin', adminRoutes);
+router.use('/membres', membreRoutes);
+router.use('/benevoles', benevoleRoutes);
 router.use('/projets', projetsRoutes);
 router.use('/evenements', evenementsRoutes);
 router.use('/dons', donsRoutes);

@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+
 const utilisateurRepository = require('../repositories/utilisateur.repository');
-const { RefreshToken, TokenBlacklist } = require('../models');
+const { RefreshToken, TokenBlacklist, sequelize } = require('../models');
 
 class AuthService {
     /**
@@ -149,38 +150,40 @@ class AuthService {
     async updateAdminProfile(userId, updateData) {
         const { nom, email, password } = updateData;
 
-        // 1. Charger l'admin complet (avec l'objet admin associé)
-        const user = await utilisateurRepository.findAdminById(userId);
-        if (!user) {
-            throw new Error("Admin non trouvé.");
-        }
-
-        // 2. Si on modifie l'email, vérifier s'il est déjà utilisé par un autre
-        if (email && email !== user.email) {
-            const existingUser = await utilisateurRepository.findAdminByEmail(email);
-            if (existingUser) {
-                throw new Error("Cet email est déjà utilisé.");
+        return await sequelize.transaction(async (t) => {
+            // 1. Charger l'admin complet (avec l'objet admin associé)
+            const user = await utilisateurRepository.findAdminById(userId);
+            if (!user) {
+                throw new Error("Admin non trouvé.");
             }
-            user.email = email;
-        }
 
-        if (nom) user.nom = nom;
+            // 2. Si on modifie l'email, vérifier s'il est déjà utilisé par un autre
+            if (email && email !== user.email) {
+                const existingUser = await utilisateurRepository.findAdminByEmail(email);
+                if (existingUser) {
+                    throw new Error("Cet email est déjà utilisé.");
+                }
+                user.email = email;
+            }
 
-        // 3. Si on modifie le mot de passe, on le hashe
-        if (password) {
-            user.admin.password = await bcrypt.hash(password, 10);
-            await user.admin.save();
-        }
+            if (nom) user.nom = nom;
 
-        // 4. Sauvegarder les modifications sur Utilisateur et sur Admin
-        await user.save();
+            // 3. Si on modifie le mot de passe, on le hashe
+            if (password) {
+                user.admin.password = await bcrypt.hash(password, 10);
+                await user.admin.save({ transaction: t });
+            }
 
-        return {
-            id: user.id,
-            nom: user.nom,
-            email: user.email,
-            type: user.type
-        };
+            // 4. Sauvegarder les modifications sur Utilisateur
+            await user.save({ transaction: t });
+
+            return {
+                id: user.id,
+                nom: user.nom,
+                email: user.email,
+                type: user.type
+            };
+        })
     }
 }
 
